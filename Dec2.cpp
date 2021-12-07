@@ -16,11 +16,11 @@ class Direction{
     public:
         std::string dir;
         int sub_tot;
-        Direction(std::string input){
+        explicit Direction(std::string input){
             dir = input;
             sub_tot = 0;
         }
-        int idx () {return (dir.size() + 1);};
+        int idx () const {return (dir.size() + 1);};
 };
 
 class PartTwo{

@@ -5,6 +5,9 @@ project(AdventOfCode)
 add_executable(Dec1 Dec1.cpp)
 add_executable(Dec2 Dec2.cpp)
 add_executable(Dec3 Dec3.cpp)
+add_executable(Dec4 Dec4.cpp)
+add_executable(Dec4_part2 Dec4_part2.cpp)
+add_executable(Dec5 Dec5.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -20,3 +23,4 @@ FetchContent_MakeAvailable(googletest)
 add_executable(test_demo test_demo.cpp)
 target_link_libraries(test_demo gtest_main)
 add_test(NAME test_demo_test COMMAND test_demo)
+

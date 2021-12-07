@@ -41,10 +41,7 @@ int main () {
     int num_inc = -1; // initialise as -1 to account for first comparison
     int win_inc = -3;
     // to account for first three comparisons, which will show increases as fewer numbers are included
-    GroupOfThree input;
-    input.int_line = 0;
-    input.prev_line = 0;
-    input.prev_prev_line = 0;
+    GroupOfThree input = {0,0,0};
     int prev_sub_tot = 0;
 
     if (file.is_open())

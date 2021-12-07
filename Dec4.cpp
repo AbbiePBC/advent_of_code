@@ -121,6 +121,7 @@ int main () {
         int current_input = 0;
         for (int i = 0; i < inputs.size(); i++){
             current_input = inputs[i];
+            std::cout << current_input << '\n';
             compare_inputs(current_input, all_cards);
             if (i >= array_size){ //can't have a full row/column otherwise (assume no duplicates)
                 retval = check_bingo(all_cards);

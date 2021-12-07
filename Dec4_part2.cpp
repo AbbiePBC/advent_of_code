@@ -37,7 +37,7 @@ void read_inputs(std::string line, std::vector<int> &inputs){
 }
 
 
-void create_bingo_cards(std::string line, std::vector<int> &card_line, std::vector<std::vector<int > > &bingo_card,
+void create_bingo_cards(const std::string& line, std::vector<int> &card_line, std::vector<std::vector<int > > &bingo_card,
                         std::vector<std::vector<std::vector <int> > > &all_cards) {
 
     read_inputs(line, card_line);
@@ -53,11 +53,11 @@ void create_bingo_cards(std::string line, std::vector<int> &card_line, std::vect
 
 void compare_inputs(int input, std::vector<std::vector<std::vector <int> > > &all_cards){
     // this is v v inefficient :(
-    for (int j = 0; j < all_cards.size(); j ++){
+    for (auto & all_card : all_cards){
         for (int i = 0; i < array_size; i ++){
             for (int y = 0; y < array_size; y ++){
-                if (input == all_cards[j][i][y]){
-                    all_cards[j][i][y] = -1;
+                if (input == all_card[i][y]){
+                    all_card[i][y] = -1;
                 }
             }
         }
@@ -124,8 +124,8 @@ int main () {
         // compare inputs
         int current_input = 0;
 
-        for (int i = 0; i < inputs.size(); i++) {
-            current_input = inputs[i];
+        for (int input : inputs) {
+            current_input = input;
         }
         for (int i = 0; i < inputs.size(); i++){
             current_input = inputs[i];
