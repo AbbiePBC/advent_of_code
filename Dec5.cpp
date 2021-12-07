@@ -16,8 +16,10 @@ class CVector {
         CVector(){};
 };
 
-
-void process_input(std::string line, CVector &lhs, CVector &rhs){
+// possible alternatives:
+// std::tuple<CVector, CVector> process_input(std::string line);
+// std::pair<CVector, CVector> process_input(std::string line);
+void process_input(std::string line, CVector &lhs, CVector &rhs){ // parse_coordinate_pairs
     std::string delimiter = ",";
     lhs.x = stoi(line.substr(0, line.find(delimiter)));
     line.erase(0, line.find(delimiter) + delimiter.length());
@@ -39,7 +41,7 @@ void find_h_v_vents(int lhs, int rhs, std::vector<std::vector<int> > &vec, int i
         larger = lhs;
         smaller = rhs;
     }
-    if (x_y_flag == 'x'){
+    if (x_y_flag == 'x'){ // could extract as enum
         // larger + 1 so that largest idx == larger
         for (int i = smaller; i < larger + 1; i ++){
             vec[i][idx] ++;
@@ -54,7 +56,7 @@ void find_h_v_vents(int lhs, int rhs, std::vector<std::vector<int> > &vec, int i
 }
 
 
-int find_result(std::vector<std::vector<int> > vec){
+int find_result(const std::vector<std::vector<int> > &vec){
     int result = 0;
     for(int i = 0; i < vent_size; i++)
     {
