@@ -7,7 +7,7 @@
 std::vector<int> store_displacements(std::string line){
     std::vector<int> displacement(max_displacement, 0);
     std::string delimiter = ",";
-    while (line.size() > 2){
+    while (line.size() > 2){ //2 for final delimiter + NT
         //TODO would prefer to keep track of idx here, but updating string doesn't change string.size()
         std::string str_displ = line.substr(0, line.find(delimiter));
         displacement[stoi(str_displ)] ++;
