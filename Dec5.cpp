@@ -9,6 +9,7 @@
 
 const int vent_size = 999;
 enum direction_flag{X,Y};
+enum diagonal_direction{up_lhs_bigger, up_rhs_bigger, down_lhs_x_bigger, down_rhs_x_bigger};
 
 struct CVector {
     int x,y;
@@ -39,7 +40,7 @@ void find_h_v_vents(int lhs, int rhs, std::vector<std::vector<int> > &vec, int i
         larger = lhs;
         smaller = rhs;
     }
-    if (x_y_flag == X){ // explicit
+    if (x_y_flag == X){
         // larger + 1 so that largest idx == larger
         for (int i = smaller; i < larger + 1; i ++){
             vec[i][idx] ++;
@@ -53,44 +54,73 @@ void find_h_v_vents(int lhs, int rhs, std::vector<std::vector<int> > &vec, int i
 }
 
 
-void find_diagonals(CVector lhs, CVector rhs, std::vector<std::vector<int> > &vec){
+void update_vector_diagonals(int diagonal_direction, CVector lhs, CVector rhs, std::vector<std::vector<int> > &vec){
     CVector start;
     CVector end;
+    switch (diagonal_direction){
+        case up_lhs_bigger:
+            start=rhs;
+            end=lhs;
+            break;
+        case up_rhs_bigger:
+            start=lhs;
+            end=rhs;
+            break;
+        case down_lhs_x_bigger:
+            start=rhs;
+            end=lhs;
+            break;
+        case down_rhs_x_bigger:
+            start=lhs;
+            end=rhs;
+            break;
+        default:
+            return;
+    }
+
+    switch (diagonal_direction){
+        case up_lhs_bigger:
+        case up_rhs_bigger:
+            //std::cout << "diagonal up" << start.x << start.y<< "\n";
+            for (int i = start.x; i < end.x + 1; i ++){
+                vec[start.y][i] ++;
+                //std::cout << "updated at " << i << start.y << '\n';
+                start.y ++;  // one to one increasing w x
+            }
+            break;
+        case down_lhs_x_bigger:
+        case down_rhs_x_bigger:
+            //std::cout << "diagonal down"<< start.x << end.y<<"\n";
+            for (int i = start.x; i < end.x + 1; i ++){
+                //std::cout << "updated at " << i << start.y << '\n';
+                vec[start.y][i]++;
+                start.y --;  // one to one decreasing w x
+            }
+        default:
+            return;
+    }
+}
+
+
+void find_diagonals(CVector lhs, CVector rhs, std::vector<std::vector<int> > &vec){
+
+    int diagonal_direction = 0;
 
     if (lhs.x > rhs.x && lhs.y > rhs.y){
-        start=rhs;
-        end=lhs;
+        diagonal_direction = up_lhs_bigger;
     }
     else if (rhs.x > lhs.x && rhs.y > lhs.y){
-        start=lhs;
-        end=rhs;
+        diagonal_direction = up_rhs_bigger;
     }
-    if ((lhs.y > rhs.y && lhs.x > rhs.x) || (lhs.x < rhs.x && lhs.y < rhs.y)){
-        //std::cout << "diagonal down" << start.x << start.y<< "\n";
-        for (int i = start.x; i < end.x + 1; i ++){
-            vec[start.y][i] ++;
-            //std::cout << "updated at " << i << start.y << '\n';
-            start.y ++;  // one to one increasing w x
-        }
-        return;
-    }
-    if (lhs.x > rhs.x && lhs.y < rhs.y){
-        start=rhs;
-        end=lhs;
+    else if (lhs.x > rhs.x && lhs.y < rhs.y){
+        diagonal_direction = down_lhs_x_bigger;
     }
     else if (lhs.y > rhs.y && lhs.x < rhs.x){
-        start=lhs;
-        end=rhs;
-    }
-    //std::cout << "diagonal down"<< start.x << end.y<<"\n";
-    for (int i = start.x; i < end.x + 1; i ++){
-        //std::cout << "updated at " << i << start.y << '\n';
-        vec[start.y][i]++;
-        start.y --;  // one to one decreasing w x
-    }
+        diagonal_direction = down_rhs_x_bigger;
 
+    }
     // larger + 1 so that largest idx == larger
-
+    update_vector_diagonals(diagonal_direction, lhs, rhs, vec);
 }
 
 
@@ -103,9 +133,9 @@ int count_common_vents(const std::vector<std::vector<int> > &vec){
             if (vec[i][j] >= 2){
                 ++result;
             }
-            std::cout << vec[i][j] << " ";
+            //std::cout << vec[i][j] << " ";
         }
-        std::cout<< "\n";
+        //std::cout<< "\n";
     }
     return result;
 }
@@ -120,8 +150,8 @@ int main () {
 
     if (file.is_open()) {
         while (getline(file, line)) {
-            CVector lhs;
-            CVector rhs;
+            CVector lhs = {0,0};
+            CVector rhs = {0,0};
             parse_coordinate_pairs(line, lhs, rhs);
             if (lhs.x == rhs.x) {
                 find_h_v_vents(rhs.y, lhs.y, vec, lhs.x, X);
