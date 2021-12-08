@@ -19,6 +19,7 @@ int main () {
             }
         }
         std::cout<<"number of fish: "<< tot<<std::endl;
+        file.close();
     }
 
     else std::cout << "Unable to open file";
