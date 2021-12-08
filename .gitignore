@@ -3,13 +3,6 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-# Input files
-Dec1_input.txt
-Dec2_input.txt
-Dec3_input.txt
-Dec4_input.txt
-Dec5_input.txt
-
 # Node artifact files
 node_modules/
 dist/

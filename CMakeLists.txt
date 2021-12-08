@@ -24,3 +24,11 @@ add_executable(test_demo test_demo.cpp)
 target_link_libraries(test_demo gtest_main)
 add_test(NAME test_demo_test COMMAND test_demo)
 
+# add_library(Dec6 Dec6_tests.cpp)
+add_executable(Dec6 Dec6.cpp Dec6_fns.cpp)
+add_executable(Dec6_tests Dec6_tests.cpp Dec6_fns.cpp)
+#target_include_directories(Dec6_tests PUBLIC
+#                            "${PROJECT_BINARY_DIR}"
+#                            "${PROJECT_SOURCE_DIR}")
+target_link_libraries(Dec6_tests gtest_main)
+add_test(NAME test_store_input COMMAND test_Dec6)
