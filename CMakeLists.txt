@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 project(AdventOfCode)
+add_subdirectory(Dec7)
 
 add_executable(Dec1 Dec1.cpp)
 add_executable(Dec2 Dec2.cpp)
@@ -24,11 +25,8 @@ add_executable(test_demo test_demo.cpp)
 target_link_libraries(test_demo gtest_main)
 add_test(NAME test_demo_test COMMAND test_demo)
 
-# add_library(Dec6 Dec6_tests.cpp)
+
 add_executable(Dec6 Dec6.cpp Dec6_fns.cpp)
 add_executable(Dec6_tests Dec6_tests.cpp Dec6_fns.cpp)
-#target_include_directories(Dec6_tests PUBLIC
-#                            "${PROJECT_BINARY_DIR}"
-#                            "${PROJECT_SOURCE_DIR}")
 target_link_libraries(Dec6_tests gtest_main)
-add_test(NAME test_store_input COMMAND test_Dec6)
+add_test(NAME test_6 COMMAND test_Dec6)
