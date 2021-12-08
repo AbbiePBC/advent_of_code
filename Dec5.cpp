@@ -168,6 +168,7 @@ int main () {
         int result = count_common_vents(vec);
         std::string str = (PART_TWO) ? "Part Two: " : "Part One: ";
         std::cout<< str << result << '\n';
+        file.close();
 
     } else std::cout << "Unable to open file";
 
