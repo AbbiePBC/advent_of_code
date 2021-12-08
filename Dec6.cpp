@@ -4,13 +4,13 @@
 
 #include "Dec6_fns.h"
 
-const int reproduction_days = 80;
+const int reproduction_days = 256;
 
 int main () {
     std::string line;
     std::ifstream file("../Dec6_input.txt");
-    std::vector<int> fish(max_days, 0); // define size of 9, initialise to zero
-    int tot = 0;
+    std::vector<std::int64_t > fish(max_days, 0); // define size of 9, initialise to zero
+    std::int64_t tot = 0;
     if (file.is_open()) {
         while (getline(file, line)) {
             tot += store_input_count_fish(line, fish);

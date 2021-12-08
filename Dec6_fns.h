@@ -12,8 +12,8 @@
 const int max_days = 9;
 const int old_fish_max_days = 6;
 
-int store_input_count_fish(std::string line, std::vector<int> &fish);
-int update_fish(std::vector<int> &fish);
+std::int64_t store_input_count_fish(std::string line, std::vector<std::int64_t > &fish);
+std::int64_t update_fish(std::vector<std::int64_t > &fish);
 
 #endif //ADVENTOFCODE_DEC6_FNS_H
 
